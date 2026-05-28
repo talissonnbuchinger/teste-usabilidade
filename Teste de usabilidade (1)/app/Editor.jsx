@@ -169,23 +169,15 @@ function Editor({ session, onUpdate, onBack, pending, syncStatus, onOpenSettings
             );
           })}
 
-          <hr className="nav-divider" />
+        <hr className="nav-divider" />
           <h3>Encerramento</h3>
           <button
             className="nav-item"
             data-active={activeAnchor === 'synthesis'}
             onClick={() => scrollTo('synthesis')}
           >
-            <span className="nav-item__n"><Icon name="sparkles" size={12} /></span>
-            <span className="nav-item__title">Síntese</span>
-          </button>
-          <button
-            className="nav-item"
-            data-active={activeAnchor === 'mod-notes'}
-            onClick={() => scrollTo('mod-notes')}
-          >
             <span className="nav-item__n"><Icon name="pencil-line" size={12} /></span>
-            <span className="nav-item__title">Notas do moderador</span>
+            <span className="nav-item__title">Anotações gerais</span>
           </button>
         </aside>
 
@@ -539,199 +531,33 @@ function TaskCard({ task, state, patch }) {
 
 // ---------------- Synthesis ----------------
 function SynthesisCard({ synthesis, patch }) {
-  const setFriction = (idx, field) => (e) => {
-    const arr = synthesis.frictions.slice();
-    arr[idx] = { ...arr[idx], [field]: e.target ? e.target.value : e };
-    patch(['synthesis', 'frictions'], arr);
-  };
-  const addFriction = () => {
-    patch(['synthesis', 'frictions'], [...synthesis.frictions, { where: '', what: '', severity: '' }]);
-  };
-  const removeFriction = (idx) => {
-    patch(['synthesis', 'frictions'], synthesis.frictions.filter((_, i) => i !== idx));
-  };
-
-  const setList = (field) => (idx) => (e) => {
-    const arr = (synthesis[field] || []).slice();
-    arr[idx] = e.target ? e.target.value : e;
-    patch(['synthesis', field], arr);
-  };
-  const addListItem = (field) => () => {
-    patch(['synthesis', field], [...(synthesis[field] || []), '']);
-  };
-
-  const setRec = (idx, field) => (e) => {
-    const arr = synthesis.recommendations.slice();
-    arr[idx] = { ...arr[idx], [field]: e.target ? e.target.value : e };
-    patch(['synthesis', 'recommendations'], arr);
-  };
-  const addRec = () => {
-    patch(['synthesis', 'recommendations'], [...synthesis.recommendations, { priority: '', text: '', origin: '' }]);
-  };
-  const removeRec = (idx) => {
-    patch(['synthesis', 'recommendations'], synthesis.recommendations.filter((_, i) => i !== idx));
-  };
-
   return (
     <section className="card card--task" id="anchor-synthesis">
       <div className="card__head">
         <div>
-          <div className="card__num"><Icon name="sparkles" size={12} /> Síntese</div>
-          <h2 className="card__title">Síntese da sessão</h2>
+          <div className="card__num"><Icon name="pencil-line" size={12} /> Encerramento</div>
+          <h2 className="card__title">Anotações gerais</h2>
         </div>
       </div>
-
       <div className="field-stack">
-        <Field label="Pontos de atrito" hint="Fricções, rupturas de modelo mental, erros.">
-          <div className="frictions-table">
-            {synthesis.frictions.map((f, i) => (
-              <div key={i} className="friction-row">
-                <input className="input" placeholder={`Onde (tarefa ${i + 1})`} value={f.where} onChange={setFriction(i, 'where')} />
-                <input className="input" placeholder="O que aconteceu" value={f.what} onChange={setFriction(i, 'what')} />
-                <select className="select" value={f.severity} onChange={setFriction(i, 'severity')}>
-                  <option value="">Severidade…</option>
-                  <option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option>
-                </select>
-                <button className="btn btn--ghost btn--sm btn--icon" onClick={() => removeFriction(i)} title="Remover">
-                  <Icon name="x" size={14} />
-                </button>
-              </div>
-            ))}
-            <button className="btn btn--outline btn--sm" onClick={addFriction} style={{ alignSelf: 'flex-start' }}>
-              <Icon name="plus" size={13} /> Adicionar atrito
-            </button>
-          </div>
-        </Field>
-
-        <Field label="Momentos de fluidez" hint="O que funcionou, o que foi natural.">
-          <textarea className="textarea" rows={3} value={synthesis.fluidity} onChange={(e) => patch(['synthesis', 'fluidity'], e.target.value)} />
-        </Field>
-
-        <Field label="Itens da Mesa que o usuário sentiu falta">
-          <textarea className="textarea" rows={3} value={synthesis.missingFromMesa} onChange={(e) => patch(['synthesis', 'missingFromMesa'], e.target.value)} />
-        </Field>
-
-        <Field label="Modelo mental observado" hint="Como o usuário descreveu o novo ambiente, com as palavras dele.">
-          <textarea className="textarea" rows={3} value={synthesis.mentalModel} onChange={(e) => patch(['synthesis', 'mentalModel'], e.target.value)} />
-        </Field>
-
-        <Field label="Citações-chave da sessão" hint="Para insights / decks. Literais.">
-          <div className="list-input">
-            {synthesis.keyQuotes.map((q, i) => (
-              <div key={i} className="list-input__row">
-                <span className="list-input__n"><Icon name="quote" size={11} /></span>
-                <input className="input" style={{ fontStyle: 'italic' }} value={q} onChange={setList('keyQuotes')(i)} placeholder="Citação literal" />
-              </div>
-            ))}
-            <button className="btn btn--ghost btn--sm" onClick={addListItem('keyQuotes')} style={{ alignSelf: 'flex-start' }}>
-              <Icon name="plus" size={13} /> Adicionar citação
-            </button>
-          </div>
-        </Field>
-
-        <Field label="Próximos passos / hipóteses">
-          <div className="list-input">
-            {synthesis.nextSteps.map((q, i) => (
-              <div key={i} className="list-input__row">
-                <span className="list-input__n">{i + 1}</span>
-                <input className="input" value={q} onChange={setList('nextSteps')(i)} placeholder="Próximo passo" />
-              </div>
-            ))}
-            <button className="btn btn--ghost btn--sm" onClick={addListItem('nextSteps')} style={{ alignSelf: 'flex-start' }}>
-              <Icon name="plus" size={13} /> Adicionar passo
-            </button>
-          </div>
-        </Field>
-
-        <Field label="Recomendações imediatas">
-          <div className="frictions-table">
-            {synthesis.recommendations.map((r, i) => (
-              <div key={i} className="friction-row">
-                <select className="select" value={r.priority} onChange={setRec(i, 'priority')}>
-                  <option value="">Prioridade…</option>
-                  <option>Alta</option><option>Média</option><option>Baixa</option>
-                </select>
-                <input className="input" placeholder="Recomendação" value={r.text} onChange={setRec(i, 'text')} />
-                <input className="input" placeholder="Origem (tarefa)" value={r.origin} onChange={setRec(i, 'origin')} />
-                <button className="btn btn--ghost btn--sm btn--icon" onClick={() => removeRec(i)} title="Remover">
-                  <Icon name="x" size={14} />
-                </button>
-              </div>
-            ))}
-            <button className="btn btn--outline btn--sm" onClick={addRec} style={{ alignSelf: 'flex-start' }}>
-              <Icon name="plus" size={13} /> Adicionar recomendação
-            </button>
-          </div>
+        <Field label="Anotações livres" hint="Observações, padrões, citações, próximos passos — anote o que for relevante.">
+          <textarea
+            className="textarea"
+            rows={10}
+            value={synthesis.fluidity || ''}
+            onChange={(e) => patch(['synthesis', 'fluidity'], e.target.value)}
+            placeholder="Use esse espaço livremente para registrar o que observou durante a sessão..."
+          />
         </Field>
       </div>
     </section>
   );
 }
 
-// ---------------- Moderator notes + checklist ----------------
 function ModeratorNotesCard({ notes, checklist, patch }) {
-  const items = [
-    ['thanked', 'Agradeci o participante'],
-    ['nextSteps', 'Confirmei próximos passos / incentivo (se aplicável)'],
-    ['recordingSaved', 'Gravação salva e renomeada'],
-    ['notesReviewed', 'Anotações revisadas a quente (até 30 min após)'],
-    ['quotesTranscribed', 'Citações transcritas literais (sem paráfrase)'],
-    ['synthesisFilled', 'Síntese preenchida'],
-    ['insightsConsolidated', 'Insights levados para a planilha / board'],
-  ];
-
-  return (
-    <section className="card card--task" id="anchor-mod-notes">
-      <div className="card__head">
-        <div>
-          <div className="card__num"><Icon name="pencil-line" size={12} /> Moderador</div>
-          <h2 className="card__title">Observações & encerramento</h2>
-        </div>
-      </div>
-
-      <div className="field-stack">
-        <Field label="Comportamento e linguagem corporal">
-          <textarea className="textarea" rows={3} value={notes.behavior} onChange={e => patch(['moderatorNotes', 'behavior'], e.target.value)} />
-        </Field>
-        <Field label="Padrões observados" hint="Hesitação, dúvida, frustração, surpresa, alívio.">
-          <textarea className="textarea" rows={3} value={notes.patterns} onChange={e => patch(['moderatorNotes', 'patterns'], e.target.value)} />
-        </Field>
-        <Field label="Aspectos a revisar no próprio roteiro" hint="Perguntas confusas, ordem, vieses.">
-          <textarea className="textarea" rows={3} value={notes.scriptReview} onChange={e => patch(['moderatorNotes', 'scriptReview'], e.target.value)} />
-        </Field>
-        <Field label="Notas livres">
-          <textarea className="textarea" rows={4} value={notes.freeNotes} onChange={e => patch(['moderatorNotes', 'freeNotes'], e.target.value)} />
-        </Field>
-
-        <hr className="divider" />
-
-        <div>
-          <div className="section-title">Checklist de encerramento</div>
-          <div className="checklist">
-            {items.map(([k, label]) => {
-              const checked = !!checklist[k];
-              return (
-                <label key={k} className="checklist__item" data-checked={checked}>
-                  <button
-                    className="checklist__box"
-                    data-checked={checked}
-                    onClick={() => patch(['checklist', k], !checked)}
-                    aria-label={label}
-                  >
-                    {checked && <Icon name="check" size={12} />}
-                  </button>
-                  {label}
-                </label>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return null;
 }
 
-// ---------------- Field wrapper + radio ----------------
 function Field({ label, hint, children }) {
   return (
     <div className="field">
