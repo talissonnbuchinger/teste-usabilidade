@@ -14,34 +14,28 @@ window.SESSION_TASKS = [
   {
     id: 't1', n: 1, title: 'Rotina de estudo atual',
     prompt: 'Me conta como é a sua rotina de estudo hoje na plataforma? O que você abre primeiro quando entra? O que você usa com frequência, o que você raramente toca?',
+    hasResult: false,
+    hasObs: false,
+    hasQuote: false,
   },
+
   {
-    id: 't2', n: 2, title: 'Acompanhar a preparação (sem estudar)',
-    prompt: 'Quando você quer acompanhar como está indo a sua preparação — não estudar, só ver como está — o que você faz?',
-  },
-  {
-    id: 't3', n: 3, title: 'Primeiro contato com o novo ambiente',
+    id: 't2', n: 2, title: 'Primeiro contato com o novo ambiente',
     prompt: 'Primeiro contato com o novo ambiente — o que você está vendo?',
     extras: [
       { id: 'firstElements', type: 'list', label: 'Primeiros elementos que o usuário citou (em ordem)', rows: 3, placeholder: 'Ex.: card de progresso, banner do curso, menu lateral…' },
     ],
   },
   {
-    id: 't4', n: 4, title: 'Leitura de intenção da tela',
+    id: 't3', n: 3, title: 'Leitura de intenção da tela',
     prompt: 'O que essa tela parece querer te dizer?',
     probes: [
       { id: 'p1', trigger: 'Se não comparar espontaneamente com a Mesa', q: 'O que é diferente do que você estava esperando encontrar?' },
     ],
   },
+
   {
-    id: 't5', n: 5, title: 'Informação vs. direção',
-    prompt: 'Você acha que essa área está te mostrando informação ou te dando uma direção?',
-    extras: [
-      { id: 'leitura', type: 'radio', label: 'Leitura do usuário', options: ['Informação', 'Direção', 'Ambos', 'Não soube dizer'] },
-    ],
-  },
-  {
-    id: 't6', n: 6, title: 'Assistir a próxima aula do curso',
+    id: 't4', n: 4, title: 'Assistir a próxima aula do curso',
     prompt: 'Você quer assistir a próxima aula do seu curso. Como você faria isso aqui?',
     pathSteps: 4,
     probes: [
@@ -51,25 +45,21 @@ window.SESSION_TASKS = [
       { id: 'p4', trigger: 'Depois que encontrar ou não encontrar', q: 'O que você acha que mudou na lógica de como acessar aulas aqui?' },
     ],
   },
+
   {
-    id: 't7', n: 7, title: 'Escolher o que assistir do curso',
-    prompt: 'Você quer escolher o que assistir do seu curso. Por onde você iria?',
-    pathSteps: 3,
-  },
-  {
-    id: 't8', n: 8, title: 'Entender o próprio desenvolvimento',
+    id: 't5', n: 5, title: 'Entender o próprio desenvolvimento',
     prompt: 'Você precisa entender como está o seu desenvolvimento, quais disciplinas precisa estudar mais. Como faria isso?',
     pathSteps: 3,
   },
   {
-    id: 't9', n: 9, title: 'Leitura do diagnóstico (geral vs. específico)',
+    id: 't6', n: 6, title: 'Leitura do diagnóstico (geral vs. específico)',
     prompt: 'Esse diagnóstico que você está vendo — você acha que é geral ou específico do seu curso? Qual a leitura que você faz desses dados?',
     extras: [
       { id: 'leitura', type: 'radio', label: 'Leitura do usuário', options: ['Geral', 'Específico do curso', 'Não soube dizer'] },
     ],
   },
   {
-    id: 't10', n: 10, title: 'Comparação com outros alunos do mesmo concurso',
+    id: 't7', n: 7, title: 'Comparação com outros alunos do mesmo concurso',
     prompt: 'Você quer entender como está sua preparação em relação a outros alunos que estão fazendo o mesmo concurso que você. Como você faria isso?',
     pathSteps: 2,
     probes: [
@@ -79,7 +69,7 @@ window.SESSION_TASKS = [
     ],
   },
   {
-    id: 't11', n: 11, title: 'Acessar questões do curso',
+    id: 't8', n: 8, title: 'Acessar questões do curso',
     prompt: 'Você precisa fazer questões do seu curso. Onde você poderia acessar?',
     pathSteps: 2,
     probes: [
@@ -88,7 +78,7 @@ window.SESSION_TASKS = [
     ],
   },
   {
-    id: 't12', n: 12, title: 'Disciplinas prioritárias / peso',
+    id: 't9', n: 9, title: 'Disciplinas prioritárias / peso',
     prompt: 'Você precisa saber quais as disciplinas mais prioritárias, que têm o maior peso. Como você descobriria isso aqui?',
     pathSteps: 2,
     probes: [
@@ -98,7 +88,7 @@ window.SESSION_TASKS = [
     ],
   },
   {
-    id: 't13', n: 13, title: 'Percepção da mudança (Mesa × novo ambiente)',
+    id: 't10', n: 10, title: 'Percepção da mudança (Mesa × novo ambiente)',
     prompt: 'Agora que você explorou tudo: o que você acha que mudou de verdade entre a Mesa e isso aqui?',
     kind: 'reflection',
     probes: [
@@ -106,20 +96,16 @@ window.SESSION_TASKS = [
     ],
   },
   {
-    id: 't14', n: 14, title: 'O que sumiu / sentiu falta',
+    id: 't11', n: 11, title: 'O que sumiu / sentiu falta',
     prompt: 'Tem alguma coisa que você usava antes e que parece ter sumido? Algo que você sentiu falta e não achou?',
     kind: 'reflection',
     extras: [
       { id: 'missing', type: 'list', label: 'Itens citados como ausentes', rows: 4, placeholder: 'Ex.: aba de questões, atalho da Mesa…' },
     ],
   },
+
   {
-    id: 't15', n: 15, title: 'Hipótese sobre a motivação da mudança',
-    prompt: 'O que você acha que motivou essa mudança? Por que você acha que foi feito diferente?',
-    kind: 'reflection',
-  },
-  {
-    id: 't16', n: 16, title: 'Avaliação 0 a 10 (nova versão × Mesa)',
+    id: 't12', n: 12, title: 'Avaliação 0 a 10 (nova versão × Mesa)',
     prompt: 'De 0 a 10, o quanto você avaliaria essa nova versão em relação à mesa? Me explica esse número.',
     kind: 'rating',
     hasResult: false,
@@ -127,45 +113,20 @@ window.SESSION_TASKS = [
       { id: 'score', type: 'rating10', label: 'Nota atribuída' },
     ],
   },
+
   {
-    id: 't17', n: 17, title: 'Momentos de "pensar diferente"',
-    prompt: 'Teve algum momento durante essa sessão em que você sentiu que a plataforma estava te pedindo pra pensar diferente do que você estava acostumado?',
-    hasResult: false,
-    extras: [
-      { id: 'answered', type: 'radio', label: 'Resposta', options: ['Sim', 'Não', 'Não sabe'] },
-    ],
-    probes: [
-      { id: 'p1', trigger: 'Se sim', q: 'Como foi isso?' },
-    ],
-  },
-  {
-    id: 't18', n: 18, title: 'Uma mudança (só uma)',
+    id: 't13', n: 13, title: 'Uma mudança (só uma)',
     prompt: 'Se você pudesse mudar uma coisa agora — só uma — o que seria?',
     hasResult: false,
     hasObs: false,
   },
   {
-    id: 't19', n: 19, title: 'Espaço aberto',
+    id: 't14', n: 14, title: 'Espaço aberto',
     prompt: 'Tem alguma coisa que você queria falar e eu não perguntei?',
     hasResult: false,
     hasObs: false,
   },
-  {
-    id: 't20', n: 20, title: 'Probes universais (uso situacional)',
-    prompt: 'Estes probes não são uma tarefa sequencial. Aplique-os ao longo da sessão sempre que o gatilho à esquerda acontecer.',
-    kind: 'probes-table',
-    hasResult: false,
-    hasObs: false,
-    hasQuote: false,
-    universalProbes: [
-      { id: 'u1', trigger: 'Foi direto pra onde ficava na Mesa', q: 'O que te fez ir lá primeiro?' },
-      { id: 'u2', trigger: 'Achou que algo sumiu', q: 'O que você acha que aconteceu com isso nessa versão — sumiu, mudou de lugar ou virou outra coisa?' },
-      { id: 'u3', trigger: 'Não entendeu que os dados são contextuais pelo curso', q: 'Você acha que isso mudaria se você estivesse em outro curso?' },
-      { id: 'u4', trigger: 'Leu o dashboard como página de conteúdo', q: 'Você acha que essa área está te mostrando informação ou te dando uma direção?' },
-      { id: 'u5', trigger: 'Reagiu mal à ausência das abas', q: 'O que tornaria essa nova forma de navegar mais natural pra você?' },
-      { id: 'u6', trigger: 'Não conectou a Central de Preparação como novo ponto de entrada', q: 'De onde você acha que a plataforma quer que você comece quando abre?' },
-    ],
-  },
+
 ];
 
 window.SESSION_META = {

@@ -229,57 +229,8 @@ function HeaderCard({ header, patch }) {
             <input className="input" value={header.course} onChange={set('course')} placeholder="Ex.: TJ-SP Escrevente" />
           </Field>
         </div>
-        <div className="grid-3">
-          <Field label="Tempo de uso da Mesa de Estudo">
-            <input className="input" value={header.mesaTime} onChange={set('mesaTime')} placeholder="Ex.: 6 meses" />
-          </Field>
-          <Field label="Data">
-            <input className="input" type="date" value={header.date} onChange={set('date')} />
-          </Field>
-          <Field label="Canal / ferramenta">
-            <input className="input" value={header.channel} onChange={set('channel')} placeholder="Google Meet · Lookback…" />
-          </Field>
-        </div>
-        <div className="grid-3">
-          <Field label="Horário início">
-            <input className="input" type="time" value={header.startTime} onChange={set('startTime')} />
-          </Field>
-          <Field label="Horário fim">
-            <input className="input" type="time" value={header.endTime} onChange={set('endTime')} />
-          </Field>
-          <Field label="Moderador">
-            <input className="input" value={header.moderator} onChange={set('moderator')} placeholder="Nome" />
-          </Field>
-        </div>
-        <Field label="Observador(es) / notetaker">
-          <input className="input" value={header.observer} onChange={set('observer')} placeholder="Nomes separados por vírgula" />
-        </Field>
-        <div className="grid-2">
-          <Field label="Gravação autorizada?">
-            <RadioRow
-              value={header.recordingConsent}
-              options={['Sim', 'Não', 'Apenas áudio']}
-              onChange={(v) => patch(['header', 'recordingConsent'], v)}
-            />
-          </Field>
-          <Field label="Consentimento (LGPD) assinado?">
-            <RadioRow
-              value={header.lgpdConsent}
-              options={['Sim', 'Não']}
-              onChange={(v) => patch(['header', 'lgpdConsent'], v)}
-            />
-          </Field>
-        </div>
-        <Field label="Setup técnico observado">
-          <textarea
-            className="textarea"
-            value={header.setup}
-            onChange={set('setup')}
-            placeholder="Dispositivo, navegador, resolução, conexão"
-          />
-        </Field>
-        <Field label="Estado emocional / disposição inicial do participante">
-          <textarea className="textarea" value={header.initialMood} onChange={set('initialMood')} placeholder="Como o participante chegou — tranquilo, ansioso, curioso…" />
+        <Field label="Tempo de uso da Mesa de Estudo">
+          <input className="input" value={header.mesaTime} onChange={set('mesaTime')} placeholder="Ex.: 6 meses" />
         </Field>
       </div>
     </section>
